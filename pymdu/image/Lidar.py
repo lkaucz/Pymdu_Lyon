@@ -122,7 +122,7 @@ class Lidar(GeoCore):
         self.classification = classification
 
     def _get_lidar_points(self):
-        url = "https://data.geopf.fr/private/wfs"
+        url = "https://data.geopf.fr/wfs/ows"
 
         # Créer le transformer pour la conversion de EPSG:4326 vers EPSG:2154
         transformer = Transformer.from_crs("EPSG:4326", "EPSG:2154", always_xy=True)
@@ -132,14 +132,13 @@ class Lidar(GeoCore):
 
         # Créer la bbox en EPSG:2154
         bbox_final = [min_x, min_y, max_x, max_y]
-        bbox_string = ",".join(map(str, bbox_final))
+        bbox_string = ",".join(map(str, bbox_final)) + ",EPSG:2154"
         # Afficher la bbox transformée
         params = {
             "service": "WFS",
             "version": "2.0.0",
             "request": "GetFeature",
-            "apikey": "interface_catalogue",
-            "typeName": "IGNF_LIDAR-HD_TA:nuage-dalle",
+            "typeName": "IGNF_NUAGES-DE-POINTS-LIDAR-HD:dalle",
             "outputFormat": "application/json",
             "bbox": bbox_string,
         }
