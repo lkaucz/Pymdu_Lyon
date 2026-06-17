@@ -143,3 +143,5 @@ dmypy.json
 jupyterlite/
 .jupyter
 .cache
+results_demo/
+landcover.tif
